@@ -60,8 +60,8 @@
 	tr = tag -d
     # [d]iff
 	dc = diff --cached
-	db = !zsh -c 'diff -u <(git rev-list --first-parent "${1}") <(git rev-list --first-parent "${2:-HEAD}") | sed -ne \"s/^ //p\" | head -1' -
-	dv= !zsh -c 'git diff -w "$@" | view -'
+	db = !bash -c 'diff -u <(git rev-list --first-parent "${1}") <(git rev-list --first-parent "${2:-HEAD}") | sed -ne \"s/^ //p\" | head -1' -
+	dv= !bash -c 'git diff -w "$@" | view -'
 
 [diff]
 	tool = vimdiff
