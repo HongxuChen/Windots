@@ -1,0 +1,34 @@
+if [ -z "$MSYSTEM" ]; then
+  MSYSTEM=MINGW32
+fi
+
+export PATH="/usr/local/bin:/bin:$PATH"
+
+if [ -z "$USERNAME" ]; then
+  LOGNAME="`id -un`"
+else
+  LOGNAME="$USERNAME"
+fi
+
+if [ -z "$HOME" ]; then
+  HOME="/c/users/$LOGNAME"
+fi
+
+if [ "x$HISTFILE" == "x/.bash_history" ]; then
+  HISTFILE=$HOME/.bash_history
+fi
+
+export HOME LOGNAME MSYSTEM HISTFILE
+
+for i in /etc/profile.d/*.sh ; do
+  if [ -f $i ]; then
+    . $i
+  fi
+done
+
+export MAKE_MODE=unix
+export PS1='\[\033]0;$MSYSTEM:\w\007
+\033[32m\]\u@\h \[\033[33m\w\033[0m\]
+$ '
+
+cd "$HOME" && source "$HOME/.bashrc"

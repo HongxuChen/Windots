@@ -1,0 +1,92 @@
+;  vim: set ft=gitconfig ts=4 sw=2 tw=0 et :
+
+[user]
+	name = HongxuChen
+	email = leftcopy.chx@gmail.com
+
+[color]
+	ui = true
+	diff = true
+	status = true
+	branch = true
+	interactive = true
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+
+[push]
+	default = tracking
+
+[core]
+	editor = vim -c ':normal gg'
+	pager = less
+	whitespace = trailing-space,space-before-tab
+	autocrlf = input
+
+[alias]
+	# ls
+    bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d;  }; f"
+    bdone = "!f() { git checkout ${1-master} && git up && git bclean ${1-master};  }; f"
+	li = ls-files --exclude-standard --ignored --others
+	wc = whatchanged -p --abbrev-commit --pretty=medium
+	s = status --short --branch --ignore-submodules=untracked
+    # up = !git pull --rebase --prune $@ && git submodule update --init --recursive
+    # log
+    lola = log --pretty=\"%Cred%h%Creset [%Cgreen%an %Creset %C(cyan)%ar%Creset]: %Cred%d%Creset %C(yellow)%s%Creset\" --graph --all
+    rct = log -8 HEAD
+	lm = !git log --decorate --pretty=format:'%an <%ae>' $1 | sort | uniq -c
+	# [c]ommit
+	cp = cherry-pick -x
+	cr = reset --hard HEAD^
+	undo = reset HEAD@{1}
+	# [r]emote
+	rp = !git push && git push --tags
+	rfp = !cd $(git rev-parse --show-toplevel) && git add -A && git commit --amend -C HEAD && git push -f
+	rup = !cd $(git rev-parse --show-toplevel) && git add -A && git commit && git push -u
+	rrr = !cd $(git rev-parse --show-toplevel) && git add -A && git commit -m \"REGULAR update\" && git push -u
+	# [s]ubmodule
+	scm = submodule foreach --recursive git checkout master
+	ss = !git submodule sync && git submodule update --init --recursive # [s]ync
+	su = submodule foreach --recursive git pull # [u]pdate
+	# [t]ag
+	tl = tag -n1 --list
+	tr = tag -d
+    # [d]iff
+	dc = diff --cached
+	db = !zsh -c 'diff -u <(git rev-list --first-parent "${1}") <(git rev-list --first-parent "${2:-HEAD}") | sed -ne \"s/^ //p\" | head -1' -
+	dv= !zsh -c 'git diff -w "$@" | view -'
+
+[diff]
+	tool = vimdiff
+	mnemonicprefix = true
+[merge]
+	tool = vimdiff
+[branch]
+	autosetuprebase = always
+[apply]
+	ignorewhitespace = change
+[mergetool]
+	prompt = false
+[gc]
+	reflogexpireunreachable = 3
+[diff "exif"]
+	textconv = exiftool
+[github]
+	user = leftcopy.chx@gmail.com
+[clangFormat]
+	style = Google
+[gui]
+	editor = vim
+[pretty]
+	custom = %C(magenta)%h%C(red)%d %C(yellow)%ar %C(green)%s %C(yellow)(%an)
+[filter "media"]
+	clean = git media clean %f
+	smudge = git media smudge %f
+	required = true

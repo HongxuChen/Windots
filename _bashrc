@@ -1,0 +1,60 @@
+# vim: set ft=sh ts=4 sw=4 tw=0 et :
+
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# don't put duplicate lines in the history. See bash(1) for more options
+# don't overwrite GNU Midnight Commander's setting of `ignorespace'.
+HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
+# ... or force ignoredups and ignorespace
+HISTCONTROL=ignoreboth
+
+# SHELL=$(which bash)
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+export HISTIGNORE="&:ls:ls *:[bf]g:exit"
+shopt -s extglob
+shopt -o -s vi
+
+###############################################################################
+
+export MY_PROJ_DIR=${HOME}/Projects
+export MY_IPYNB_DIR=${MY_PROJ_DIR}/ipynb
+
+export MY_MINGW_BIN="/c/MinGW/bin"
+export PATH=${MY_MINGW_BIN}:$PATH
+
+vim() { gvim $@ & }
+alias vi="vim"
+alias edit=vim
+alias ..='cd ..'
+alias ...='cd ...'
+alias clear=clsb
+alias my_bashreload='source ~/.bashrc'
+alias ls="ls --color=auto"
+alias la='ls -Ah'
+alias l='ls -F'
+alias ll='ls -lh'
+alias lrt='ls -lrth'
+alias ldot='ls ld .*'
+alias sl='ls'
+alias grep='grep --color=auto'
+alias dud='du -d 1 -h'
+alias duf='du -sh *'
+alias sane_f='find . -type d -print0 | xargs -0 chmod 755'
+alias sane_d='find . -type f -print0 | xargs -0 chmod 644'
+alias r_cp='rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --'
+alias r_mv='rsync -a --progress -h --remove-source-files'
+alias r_update='rsync -avu --progress -h'
+alias r_sync='rsync -avu --delete --progress -h'
+alias q='exit'
+alias open='start'
+alias p_nb="cd ${MY_IPYNB_DIR} && ipython notebook --profile nb"
+
+###############################################################################
+export EDITOR=vi
+export GIT_EDITOR=vi

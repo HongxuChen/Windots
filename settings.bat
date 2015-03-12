@@ -1,0 +1,3 @@
+setx path "C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\ProgramData\Oracle\Java\javapath;%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn"
+setx my_path "C:\Python27;C:\Python27\Scripts;C:\Python27\Lib\site-packages\PySide;C:\Users\hongxu\AppData\Roaming\npm;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs\;C:\Program Files (x86)\Git\cmd;C:\Program Files (x86)\Git\bin"
+setx path "%PATH%;%MY_PATH%"
